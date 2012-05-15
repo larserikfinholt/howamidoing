@@ -3,16 +3,21 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using how.web.Models;
+using how.web.ViewModel;
 
 namespace how.web.Controllers
 {
     public class HomeController : Controller
     {
+        private ModelContext db = new ModelContext();
+
         public ActionResult Index()
         {
-            ViewBag.Message = "Ready to become a disiplined, structured person?";
+            var vm = new HomeViewModel();
+            vm.Goals = db.Goals.Where(x => x.UserName == User.Identity.Name).ToList();
 
-            return View();
+            return View(vm);
         }
 
         public ActionResult About()

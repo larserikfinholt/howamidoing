@@ -18,7 +18,7 @@ namespace how.web.Controllers
 
         public ActionResult Index()
         {
-            var doneits = db.DoneIts.Include(d => d.Goal);
+            var doneits = db.DoneIts.Include(d => d.Goal).Where(x=>x.Goal.UserName==User.Identity.Name);
             return View(doneits.ToList());
         }
 
@@ -38,10 +38,10 @@ namespace how.web.Controllers
         //
         // GET: /DoneIt/Create
 
-        public ActionResult Create()
+        public ActionResult Create(int? id)
         {
             ViewBag.Model = new DoneIt { Date = DateTime.Now };
-            ViewBag.GoalId = new SelectList(db.Goals, "Id", "Title");
+            ViewBag.GoalId = new SelectList(db.Goals, "Id", "Title", id);
             return View();
         }
 
@@ -55,7 +55,7 @@ namespace how.web.Controllers
             {
                 db.DoneIts.Add(doneit);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Details", "Goal", new { id = doneit.GoalId });
             }
 
             ViewBag.GoalId = new SelectList(db.Goals, "Id", "Title", doneit.GoalId);
@@ -86,7 +86,7 @@ namespace how.web.Controllers
             {
                 db.Entry(doneit).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Details", "Goal", new { id = doneit.GoalId });
             }
             ViewBag.GoalId = new SelectList(db.Goals, "Id", "Title", doneit.GoalId);
             return View(doneit);
@@ -114,7 +114,7 @@ namespace how.web.Controllers
             DoneIt doneit = db.DoneIts.Find(id);
             db.DoneIts.Remove(doneit);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("Details", "Goal", new { id = doneit.GoalId });
         }
 
         protected override void Dispose(bool disposing)

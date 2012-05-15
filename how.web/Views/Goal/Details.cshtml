@@ -72,11 +72,13 @@
             @Html.DisplayFor(modelItem => item.Comment)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+            @Html.ActionLink("Edit", "Edit", "DoneIt", new { id = item.Id }, new  { }) |
+            @Html.ActionLink("Details", "Details","DoneIt",new { id = item.Id }, new  { }) |
+            @Html.ActionLink("Delete", "Delete", "DoneIt", new { id = item.Id }, new  { }) 
         </td>
     </tr>
 }
 
 </table>
+
+@Html.ActionLink("Add new entry", "Create", "DoneIt",new {id=Model.Id}, new {@class="test2"})

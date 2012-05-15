@@ -18,7 +18,8 @@ namespace how.web.Controllers
 
         public ActionResult Index()
         {
-            return View(db.Goals.ToList());
+            
+            return View(db.Goals.Where(x=>x.UserName==User.Identity.Name).ToList());
         }
 
         //
