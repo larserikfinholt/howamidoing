@@ -1,0 +1,39 @@
+﻿@model how.web.Models.Goal
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<fieldset>
+    <legend>Goal</legend>
+
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Title)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Title)
+    </div>
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.IntervalType)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.IntervalType)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Interval)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Interval)
+    </div>
+</fieldset>
+@using (Html.BeginForm()) {
+    <p>
+        <input type="submit" value="Delete" /> |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+}

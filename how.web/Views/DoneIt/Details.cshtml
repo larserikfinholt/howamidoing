@@ -1,0 +1,43 @@
+﻿@model how.web.Models.DoneIt
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>DoneIt</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Goal.UserName)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Goal.UserName)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Date)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Date)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Amount)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Amount)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Comment)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Comment)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

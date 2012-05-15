@@ -1,0 +1,13 @@
+﻿@model System.DateTime?
+@Html.TextBox("", (Model.HasValue ? Model.Value.ToShortDateString() : string.Empty), new { @class = "pickDate" })
+Jalla
+
+<script type="text/javascript">
+     $(document).ready(function () {
+
+         $('.pickDate').datepicker({ 
+             changeMonth: true,
+             changeYear: true
+         });
+     });
+</script>

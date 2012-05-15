@@ -1,0 +1,68 @@
+﻿@model how.web.Models.DoneIt
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Create</h2>
+
+<script src="@Url.Content("~/Scripts/jquery.validate.min.js")"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")"></script>
+
+@using (Html.BeginForm()) {
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>DoneIt</legend>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.GoalId, "Goal")
+        </div>
+        <div class="editor-field">
+            @Html.DropDownList("GoalId", String.Empty)
+            @Html.ValidationMessageFor(model => model.GoalId)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Amount)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Amount)
+            @Html.ValidationMessageFor(model => model.Amount)
+        </div>
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Date)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Date)
+            @Html.ValidationMessageFor(model => model.Date)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Comment)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Comment)
+            @Html.ValidationMessageFor(model => model.Comment)
+        </div>
+
+        <p>
+            <input type="submit" value="Create" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+
+<script type="text/javascript">
+
+    $(function(){
+
+
+
+    });
+
+</script>
