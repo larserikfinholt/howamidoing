@@ -3,3 +3,8 @@ C:\Projects\howamidoing\how.test\bin\Debug\how.test.pdb
 C:\Projects\howamidoing\how.test\obj\Debug\how.test.csprojResolveAssemblyReference.cache
 C:\Projects\howamidoing\how.test\obj\Debug\how.test.dll
 C:\Projects\howamidoing\how.test\obj\Debug\how.test.pdb
+C:\Projects\howamidoing\how.test\bin\Debug\how.web.dll
+C:\Projects\howamidoing\how.test\bin\Debug\EntityFramework.dll
+C:\Projects\howamidoing\how.test\bin\Debug\System.Web.Optimization.dll
+C:\Projects\howamidoing\how.test\bin\Debug\how.web.pdb
+C:\Projects\howamidoing\how.test\bin\Debug\EntityFramework.xml

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using how.web.Business;
 using how.web.Models;
 using how.web.ViewModel;
 
@@ -15,7 +16,13 @@ namespace how.web.Controllers
         public ActionResult Index()
         {
             var vm = new HomeViewModel();
-            vm.Goals = db.Goals.Where(x => x.UserName == User.Identity.Name).ToList();
+            var logic = new GoalProcessor();
+            var goals =  db.Goals.Include("DoneIts").Where(x => x.UserName == User.Identity.Name).ToList();
+            foreach (var goal in goals)
+            {
+                vm.Goals.Add(logic.ProcessGoal(goal));
+            }
+            vm.OverallStatus = logic.FindOverallStatus(vm.Goals);
 
             return View(vm);
         }

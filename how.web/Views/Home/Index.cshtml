@@ -12,7 +12,7 @@
                     <h1>Welcome</h1>
                     <h2>Here's your current status</h2>
                 </hgroup>
-                <p>Everything is ok</p>
+                <p>Current status is @Model.OverallStatus</p>
             </div>
         }
         else
@@ -39,10 +39,10 @@
     <h3>Here's how your're doing...</h3>
         <p>You have set up the following goals:</p>
         <ul>
-            @foreach (var goal in Model.Goals)
+            @foreach (var item in Model.Goals)
             {
                 <li><div><h5>
-                    @goal.Title</h5><p>?</p><p></p> </div></li>
+                    @item.Goal.Title</h5><p>Number of done its: @item.Goal.DoneIts.Count</p><p>You'll go red at: @item.AtZero.ToString()</p> </div></li>
             }
         </ul>
     

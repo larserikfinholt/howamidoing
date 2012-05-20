@@ -36,6 +36,10 @@ namespace how.web.Models
         public IntervalType IntervalType { get; set; }
         public UnitType Unit { get; set; }
         public List<DoneIt> DoneIts { get; set; }
+        public Goal()
+        {
+            DoneIts = new List<DoneIt>();
+        }
     }
     public class DoneIt
     {
@@ -44,7 +48,7 @@ namespace how.web.Models
         public int GoalId { get; set; }
         public Goal Goal { get; set; }
         public DateTime Date { get; set; }
-        public int Amount { get; set; }
+        public decimal Amount { get; set; }
         public string Comment { get; set; }
     }
 }
