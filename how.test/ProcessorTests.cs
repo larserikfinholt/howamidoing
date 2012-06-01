@@ -144,7 +144,7 @@ namespace how.test
         {
             var now = DateTime.Now;
             var target = new GoalProcessor(now);
-            var goal = new Goal() { IntervalType = IntervalType.Weekly };
+            var goal = new Goal() {EvaluationType=GoalEvaluation.Countinious, IntervalType = IntervalType.Weekly };
 
             var vm = target.ProcessGoal(goal);
             Assert.AreEqual(vm.Graph.Points[0].Time, now.AddDays(-14));
@@ -152,39 +152,35 @@ namespace how.test
             Assert.AreEqual(0, vm.Graph.Points[0].Amount);
             Assert.AreEqual(0, vm.Graph.Points[1].Amount);
 
-            goal = new Goal() { IntervalType = IntervalType.Monthly };
+            goal = new Goal() { EvaluationType = GoalEvaluation.Countinious, IntervalType = IntervalType.Monthly };
             vm = target.ProcessGoal(goal);
             Assert.AreEqual(vm.Graph.Points[0].Time, now.AddMonths(-2));
             Assert.AreEqual(vm.Graph.Points[1].Time, now.AddMonths(1));
 
-            goal = new Goal() { IntervalType = IntervalType.Dayly };
+            goal = new Goal() { EvaluationType = GoalEvaluation.Countinious, IntervalType = IntervalType.Dayly };
             vm = target.ProcessGoal(goal);
             Assert.AreEqual(vm.Graph.Points[0].Time, now.AddDays(-2));
-            Assert.AreEqual(vm.Graph.Points[1].Time, now.AddDays(1));
+            Assert.AreEqual(vm.Graph.Points[1].Time, now.AddDays(2));
 
         }
+        [TestMethod]
         public void it_should_start_and_end_on_specified_dates_if_timelimited()
         {
             var now = DateTime.Now;
             var target = new GoalProcessor(now);
-            var goal = new Goal() {  IntervalType = IntervalType.Weekly };
-            // test
+            var goal = new Goal() {  EvaluationType=GoalEvaluation.Timelimited };
+            
             var vm = target.ProcessGoal(goal);
-            Assert.AreEqual(vm.Graph.Points[0].Time, now.AddDays(-14));
-            Assert.AreEqual(vm.Graph.Points[1].Time, now.AddDays(7));
             Assert.AreEqual(0, vm.Graph.Points[0].Amount);
             Assert.AreEqual(0, vm.Graph.Points[1].Amount);
 
-            goal = new Goal() { IntervalType = IntervalType.Monthly };
+            goal = new Goal() { EvaluationType = GoalEvaluation.Timelimited, StartDate=now.AddDays(-10), EndDate=now.AddDays(10) };
             vm = target.ProcessGoal(goal);
-            Assert.AreEqual(vm.Graph.Points[0].Time, now.AddMonths(-2));
-            Assert.AreEqual(vm.Graph.Points[1].Time, now.AddMonths(1));
+            Assert.AreEqual(vm.Graph.Points[0].Time, now.AddDays(-10));
+            Assert.AreEqual(vm.Graph.Points[1].Time, now.AddDays(10));
 
-            goal = new Goal() { IntervalType = IntervalType.Dayly };
-            vm = target.ProcessGoal(goal);
-            Assert.AreEqual(vm.Graph.Points[0].Time, now.AddDays(-2));
-            Assert.AreEqual(vm.Graph.Points[1].Time, now.AddDays(1));
-             
+
+            
         }
 
     }

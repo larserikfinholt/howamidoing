@@ -24,6 +24,7 @@ namespace how.web.Business
             var vm = new GoalViewModel();
             vm.Status = GoalStatus.NotStarted;
             vm.Goal = goal;
+            vm.Graph = new GraphViewModel();
 
             decimal currentLevel = 0;
             DateTime? previousDoneItTime = null;
@@ -50,12 +51,13 @@ namespace how.web.Business
                 vm.AtZero = TimeSpan.FromHours( Convert.ToDouble(currentLevel / perHour));
                 vm.CurrentLevel = currentLevel;
             }
-
+            var gp = new GraphProcessor(_now);
+            vm.Graph = gp.ProcessGraph(goal);
             
             return vm;
         }
 
-        private static decimal GetHourlyDecreaseRate(Goal goal)
+        public static decimal GetHourlyDecreaseRate(Goal goal)
         {
             decimal perHour = 0;
             switch (goal.IntervalType)
