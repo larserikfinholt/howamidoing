@@ -168,7 +168,7 @@ namespace how.test
             var now = DateTime.Now;
             var target = new GoalProcessor(now);
             var goal = new Goal() {  IntervalType = IntervalType.Weekly };
-
+            // test
             var vm = target.ProcessGoal(goal);
             Assert.AreEqual(vm.Graph.Points[0].Time, now.AddDays(-14));
             Assert.AreEqual(vm.Graph.Points[1].Time, now.AddDays(7));
@@ -184,7 +184,7 @@ namespace how.test
             vm = target.ProcessGoal(goal);
             Assert.AreEqual(vm.Graph.Points[0].Time, now.AddDays(-2));
             Assert.AreEqual(vm.Graph.Points[1].Time, now.AddDays(1));
-
+             
         }
 
     }
