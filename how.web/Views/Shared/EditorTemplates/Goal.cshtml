@@ -1,0 +1,54 @@
+﻿@using how.web;
+@model how.web.Models.Goal
+
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Enabled)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Enabled)
+        </div>
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Title)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Title)
+            @Html.ValidationMessageFor(model => model.Title)
+        </div>
+        <div class="editor-label">
+            @Html.LabelFor(model => model.MesurementType)
+        </div>
+        <div class="editor-field">
+            @Html.EnumDropDownListFor(model => model.MesurementType)
+            @Html.ValidationMessageFor(model => model.MesurementType)
+        </div>
+        <div class="editor-label">
+            @Html.LabelFor(model => model.EvaluationType)
+        </div>
+        <div class="editor-field">
+            @Html.EnumDropDownListFor(model => model.EvaluationType)
+            @Html.ValidationMessageFor(model => model.EvaluationType)
+        </div>
+        <div class="editor-label">
+            @Html.LabelFor(model => model.IntervalType)
+        </div>
+        <div class="editor-field">
+            @Html.EnumDropDownListFor(model => model.IntervalType)
+            @Html.ValidationMessageFor(model => model.IntervalType)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Amount)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Amount)
+            @Html.ValidationMessageFor(model => model.Amount)
+        </div>
+        <div class="editor-label">
+            @Html.LabelFor(model => model.ChecklistItems)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.ChecklistItems)
+            @Html.ValidationMessageFor(model => model.ChecklistItems)
+        </div>
+
