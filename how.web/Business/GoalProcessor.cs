@@ -25,28 +25,10 @@ namespace how.web.Business
             vm.Status = GoalStatus.NotStarted;
             vm.Goal = goal;
 
-            // Goal: 4 hours / Week
-
-            decimal perHour = 0;
             decimal currentLevel = 0;
             DateTime? previousDoneItTime = null;
 
-            switch (goal.IntervalType)
-            {
-                case IntervalType.Dayly:
-                    perHour = (decimal)goal.Interval / 24;
-                    break;
-                case IntervalType.Weekly:
-                    // Number per hour
-                    perHour = (decimal)goal.Interval / (7 * 24);
-                    break;
-                case IntervalType.Monthly:
-                    perHour = (decimal)goal.Interval / (30 * 24);
-                    break;
-                default:
-                    new NotSupportedException();
-                    break;
-            }
+            decimal perHour = GetHourlyDecreaseRate(goal);
             if (goal.DoneIts.Count > 0)
             {
                 foreach (var done in goal.DoneIts.OrderBy(d => d.Date))
@@ -60,16 +42,39 @@ namespace how.web.Business
                     {
                         currentLevel += done.Amount;
                     }
-
                 }
                 var diff = (_now - (DateTime)previousDoneItTime).TotalHours;
                 currentLevel -= (perHour * Convert.ToDecimal(diff));
                 vm.Status = currentLevel < 0 ? GoalStatus.Behind : GoalStatus.OnTrack;
-                
+
+                vm.AtZero = TimeSpan.FromHours( Convert.ToDouble(currentLevel / perHour));
+                vm.CurrentLevel = currentLevel;
             }
 
             
             return vm;
+        }
+
+        private static decimal GetHourlyDecreaseRate(Goal goal)
+        {
+            decimal perHour = 0;
+            switch (goal.IntervalType)
+            {
+                case IntervalType.Dayly:
+                    perHour = (decimal)goal.Amount / 24;
+                    break;
+                case IntervalType.Weekly:
+                    // Number per hour
+                    perHour = (decimal)goal.Amount / (7 * 24);
+                    break;
+                case IntervalType.Monthly:
+                    perHour = (decimal)goal.Amount / (30 * 24);
+                    break;
+                default:
+                    new NotSupportedException();
+                    break;
+            }
+            return perHour;
         }
 
 
@@ -81,5 +86,7 @@ namespace how.web.Business
 
             return g == null ? GoalStatus.NoGoalsDefined : g.Status;
         }
+
+        
     }
 }

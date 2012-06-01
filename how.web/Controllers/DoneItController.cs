@@ -40,9 +40,9 @@ namespace how.web.Controllers
 
         public ActionResult Create(int? id)
         {
-            ViewBag.Model = new DoneIt { Date = DateTime.Now };
+            var doneIt = new DoneIt { Date = DateTime.Now , Amount=1};
             ViewBag.GoalId = new SelectList(db.Goals, "Id", "Title", id);
-            return View();
+            return View(doneIt);
         }
 
         //
@@ -55,7 +55,7 @@ namespace how.web.Controllers
             {
                 db.DoneIts.Add(doneit);
                 db.SaveChanges();
-                return RedirectToAction("Details", "Goal", new { id = doneit.GoalId });
+                return RedirectToAction("Index", "Home"); // new { id = doneit.GoalId });
             }
 
             ViewBag.GoalId = new SelectList(db.Goals, "Id", "Title", doneit.GoalId);

@@ -10,6 +10,10 @@ namespace how.web.ViewModel
     {
         public Goal Goal { get; set; }
         public GoalStatus Status { get; set; }
-        public DateTime AtZero { get; set; }
+        public TimeSpan AtZero { get; set; }
+
+        public decimal CurrentLevel { get; set; }
+
+        public GraphViewModel Graph { get; set; }
     }
 }

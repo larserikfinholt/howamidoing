@@ -17,7 +17,7 @@ namespace how.web.Controllers
         {
             var vm = new HomeViewModel();
             var logic = new GoalProcessor();
-            var goals =  db.Goals.Include("DoneIts").Where(x => x.UserName == User.Identity.Name).ToList();
+            var goals =  db.Goals.Include("DoneIts").Where(x => x.UserName == User.Identity.Name && x.Enabled).ToList();
             foreach (var goal in goals)
             {
                 vm.Goals.Add(logic.ProcessGoal(goal));

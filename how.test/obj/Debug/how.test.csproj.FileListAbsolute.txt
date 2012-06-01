@@ -8,3 +8,13 @@ C:\Projects\howamidoing\how.test\bin\Debug\EntityFramework.dll
 C:\Projects\howamidoing\how.test\bin\Debug\System.Web.Optimization.dll
 C:\Projects\howamidoing\how.test\bin\Debug\how.web.pdb
 C:\Projects\howamidoing\how.test\bin\Debug\EntityFramework.xml
+C:\Projects\howamidoing\how.test\bin\Debug\System.Web.Http.Common.dll
+C:\Projects\howamidoing\how.test\bin\Debug\System.Web.Http.WebHost.dll
+C:\Projects\howamidoing\how.test\bin\Debug\System.Web.Http.dll
+C:\Projects\howamidoing\how.test\bin\Debug\System.Net.Http.Formatting.dll
+C:\Projects\howamidoing\how.test\bin\Debug\System.Json.dll
+C:\Projects\howamidoing\how.test\bin\Debug\System.Web.Http.Common.xml
+C:\Projects\howamidoing\how.test\bin\Debug\System.Web.Http.WebHost.xml
+C:\Projects\howamidoing\how.test\bin\Debug\System.Web.Http.xml
+C:\Projects\howamidoing\how.test\bin\Debug\System.Net.Http.Formatting.xml
+C:\Projects\howamidoing\how.test\bin\Debug\System.Json.xml

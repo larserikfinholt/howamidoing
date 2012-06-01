@@ -79,6 +79,7 @@ namespace how.web.Controllers
         [HttpPost]
         public ActionResult Edit(Goal goal)
         {
+            goal.UserName = User.Identity.Name;
             if (ModelState.IsValid)
             {
                 db.Entry(goal).State = EntityState.Modified;

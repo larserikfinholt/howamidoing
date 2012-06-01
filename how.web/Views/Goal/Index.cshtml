@@ -14,13 +14,16 @@
 <table>
     <tr>
         <th>
+            @Html.DisplayNameFor(model => model.Enabled)
+        </th>
+        <th>
             @Html.DisplayNameFor(model => model.Title)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.IntervalType)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Interval)
+            @Html.DisplayNameFor(model => model.Amount)
         </th>
         <th></th>
     </tr>
@@ -28,13 +31,16 @@
 @foreach (var item in Model) {
     <tr>
         <td>
+            @Html.DisplayFor(modelItem => item.Enabled)
+        </td>
+        <td>
             @Html.DisplayFor(modelItem => item.Title)
         </td>
         <td>
             @Html.DisplayFor(model => item.IntervalType)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Interval)
+            @Html.DisplayFor(modelItem => item.Amount)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |

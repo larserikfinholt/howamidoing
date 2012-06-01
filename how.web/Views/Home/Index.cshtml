@@ -42,7 +42,7 @@
             @foreach (var item in Model.Goals)
             {
                 <li><div><h5>
-                    @item.Goal.Title</h5><p>Number of done its: @item.Goal.DoneIts.Count</p><p>You'll go red at: @item.AtZero.ToString()</p> </div></li>
+                    @item.Goal.Title (@item.Status)</h5><p>Number of done its: @item.Goal.DoneIts.Count</p><p>You'll go red in @item.AtZero.Days.ToString() days. Current level: @item.CurrentLevel</p>@Html.ActionLink("Done It!", "Create", "DoneIt", new { id=item.Goal.Id }, new { }) </div></li>
             }
         </ul>
     
