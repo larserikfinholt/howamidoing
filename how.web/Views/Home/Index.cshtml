@@ -1,5 +1,5 @@
+@using how.web.ViewModel;
 @model how.web.ViewModel.HomeViewModel
-
 @{
     ViewBag.Title = "Welcome";
 }
@@ -37,14 +37,22 @@
 @if (User.Identity.IsAuthenticated)
 {
     <h3>Here's how your're doing...</h3>
-        <p>You have set up the following goals:</p>
-        <ul>
-            @foreach (var item in Model.Goals)
-            {
-                <li><div><h5>
-                    @item.Goal.Title (@item.Status)</h5><p>Number of done its: @item.Goal.DoneIts.Count</p><p>You'll go red in @item.AtZero.Days.ToString() days. Current level: @item.CurrentLevel</p>@Html.ActionLink("Done It!", "Create", "DoneIt", new { id=item.Goal.Id }, new { }) </div></li>
-            }
-        </ul>
+    <p>You have set up the following goals:</p>
+    <ul>
+        @foreach (var item in Model.Goals)
+        {
+            <li>
+                <div>
+                    <h5>
+                        @item.Goal.Title (@item.Status)</h5>
+                    <p>Number of done its: @item.Goal.DoneIts.Count</p>
+                    <p>You'll go red in @item.AtZero.Days.ToString() days. Current level: @item.CurrentLevel.ToString("#.#")
+                    </p>
+                    <div>@CreateGraph(item)</div>@Html.ActionLink("Done It!", "Create", "DoneIt", new { id = item.Goal.Id }, new { })
+                </div>
+            </li>
+        }
+    </ul>
     
 }
 else
@@ -74,7 +82,7 @@ else
             <img src="~/Images/aspNetHome.png" alt="" />
             <h3>Easy goal followup</h3>
             <p>
-                Register your goals, and you'll at anytime see if your're on track or behind your
+                Register your goals, and you'll at anytime see if your're ogon track or behind your
                 schedule.
             </p>
         </section>
@@ -94,4 +102,26 @@ else
             </p>
         </section>
     </section>
+}
+@helper CreateGraph(GoalViewModel goal)
+{
+    <script type="text/javascript">
+    
+        
+
+    </script>@*
+    <ul>
+        
+    @foreach (var point in goal.Graph.Points.OrderBy(p=>p.Time))
+    {
+        
+        <li>@string.Format("{0} {1} ({2},{3})",point.Time.ToShortDateString(), point.Amount, point.x.ToString("0.0"), point.y.ToString("0.0"))</li>
+    }   
+        </ul> 
+    
+    *@<div id="@string.Format("plotdiv{0}", goal.Goal.Id)" style="height:200px;width:300px; ">
+    </div> 
+    <script type="text/javascript">
+        window.drawPlot('@string.Format("plotdiv{0}",goal.Goal.Id)', [@goal.SerializePoints()]);
+    </script>
 }

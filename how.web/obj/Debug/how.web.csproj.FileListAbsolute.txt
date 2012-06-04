@@ -34,3 +34,6 @@ C:\Projects\howamidoing\how.web\bin\System.Web.WebPages.Razor.xml
 C:\Projects\howamidoing\how.web\obj\Debug\how.web.dll
 C:\Projects\howamidoing\how.web\obj\Debug\how.web.pdb
 C:\Projects\howamidoing\how.web\obj\Debug\how.web.csprojResolveAssemblyReference.cache
+C:\Projects\howamidoing\how.web\bin\ServiceStack.Text.dll
+C:\Projects\howamidoing\how.web\bin\ServiceStack.Text.pdb
+C:\Projects\howamidoing\how.web\bin\ServiceStack.Text.xml

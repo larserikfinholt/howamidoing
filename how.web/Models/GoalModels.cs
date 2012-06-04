@@ -73,6 +73,11 @@ namespace how.web.Models
         {
             DoneIts = new List<DoneIt>(); 
         }
+
+        public decimal GetLowerCutoff()
+        {
+            return -Amount * 2;
+        }
     }
     public class DoneIt
     {

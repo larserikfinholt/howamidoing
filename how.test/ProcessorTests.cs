@@ -111,23 +111,25 @@ namespace how.test
 
             // Hour
             goal = new Goal() { Amount = 24, IntervalType = IntervalType.Dayly };
-            goal.DoneIts = new List<DoneIt>() { new DoneIt() { Amount = 48.01M, Date = now.AddDays(-2) } };
+            goal.DoneIts = new List<DoneIt>() { new DoneIt() { Amount = 24.01M, Date = now.AddDays(-1) } };
             var vm = target.ProcessGoal(goal);
             Assert.AreEqual(GoalStatus.OnTrack, vm.Status);
+            Assert.IsTrue(Math.Abs(vm.CurrentLevel - 0) < 0.1M);
 
-            goal.DoneIts = new List<DoneIt>() { new DoneIt() { Amount = 47.99M, Date = now.AddDays(-2) } };
+            goal.DoneIts = new List<DoneIt>() { new DoneIt() { Amount = 23.99M, Date = now.AddDays(-1) } };
             vm = target.ProcessGoal(goal);
             Assert.AreEqual(GoalStatus.Behind, vm.Status);
+            Assert.IsTrue(Math.Abs(vm.CurrentLevel - 0) < 0.1M);
+
+            goal.DoneIts = new List<DoneIt>() { new DoneIt() { Amount = 24.01M, Date = now.AddDays(-2) } };
+            vm = target.ProcessGoal(goal);
+            Assert.IsTrue(Math.Abs(vm.CurrentLevel - -24) < 0.1M);
 
             // Hour limited by threshold (2*)
-            goal = new Goal() { Amount = 24, IntervalType = IntervalType.Dayly };
-            goal.DoneIts = new List<DoneIt>() { new DoneIt() { Amount = 48.01M, Date = now.AddDays(-3) } };
+            goal.DoneIts = new List<DoneIt>() { new DoneIt() { Amount = 24.01M, Date = now.AddDays(-4) } };
             vm = target.ProcessGoal(goal);
-            Assert.AreEqual(GoalStatus.Behind, vm.Status);
+            Assert.IsTrue(Math.Abs(vm.CurrentLevel - -48) < 0.1M);
 
-            goal.DoneIts = new List<DoneIt>() { new DoneIt() { Amount = 47.99M, Date = now.AddDays(-3) } };
-            vm = target.ProcessGoal(goal);
-            Assert.AreEqual(GoalStatus.Behind, vm.Status);
         }
         [TestMethod]
         public void it_should_build_a_flat_zero_line_if_no_donits()
@@ -139,49 +141,7 @@ namespace how.test
             var vm= target.ProcessGoal(goal);
             Assert.AreEqual(vm.Graph.Points.Count, 2);
         }
-        [TestMethod]
-        public void it_should_start_one_interval_before_and_end_one_interval_after_if_interval()
-        {
-            var now = DateTime.Now;
-            var target = new GoalProcessor(now);
-            var goal = new Goal() {EvaluationType=GoalEvaluation.Countinious, IntervalType = IntervalType.Weekly };
-
-            var vm = target.ProcessGoal(goal);
-            Assert.AreEqual(vm.Graph.Points[0].Time, now.AddDays(-14));
-            Assert.AreEqual(vm.Graph.Points[1].Time, now.AddDays(7));
-            Assert.AreEqual(0, vm.Graph.Points[0].Amount);
-            Assert.AreEqual(0, vm.Graph.Points[1].Amount);
-
-            goal = new Goal() { EvaluationType = GoalEvaluation.Countinious, IntervalType = IntervalType.Monthly };
-            vm = target.ProcessGoal(goal);
-            Assert.AreEqual(vm.Graph.Points[0].Time, now.AddMonths(-2));
-            Assert.AreEqual(vm.Graph.Points[1].Time, now.AddMonths(1));
-
-            goal = new Goal() { EvaluationType = GoalEvaluation.Countinious, IntervalType = IntervalType.Dayly };
-            vm = target.ProcessGoal(goal);
-            Assert.AreEqual(vm.Graph.Points[0].Time, now.AddDays(-2));
-            Assert.AreEqual(vm.Graph.Points[1].Time, now.AddDays(2));
-
-        }
-        [TestMethod]
-        public void it_should_start_and_end_on_specified_dates_if_timelimited()
-        {
-            var now = DateTime.Now;
-            var target = new GoalProcessor(now);
-            var goal = new Goal() {  EvaluationType=GoalEvaluation.Timelimited };
-            
-            var vm = target.ProcessGoal(goal);
-            Assert.AreEqual(0, vm.Graph.Points[0].Amount);
-            Assert.AreEqual(0, vm.Graph.Points[1].Amount);
-
-            goal = new Goal() { EvaluationType = GoalEvaluation.Timelimited, StartDate=now.AddDays(-10), EndDate=now.AddDays(10) };
-            vm = target.ProcessGoal(goal);
-            Assert.AreEqual(vm.Graph.Points[0].Time, now.AddDays(-10));
-            Assert.AreEqual(vm.Graph.Points[1].Time, now.AddDays(10));
-
-
-            
-        }
+       
 
     }
 }

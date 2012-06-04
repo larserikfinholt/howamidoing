@@ -13,7 +13,20 @@ namespace how.web.ViewModel
         public TimeSpan AtZero { get; set; }
 
         public decimal CurrentLevel { get; set; }
+        public CutoffStatus Cutoff { get; set; }
 
         public GraphViewModel Graph { get; set; }
+
+        public string SerializePoints()
+        {
+            var q = (from p in Graph.Points select new []{p.x, p.y}).ToArray();
+			return	ServiceStack.Text.JsonSerializer.SerializeToString<decimal[][]>(q);
+        }
+
+    }
+    public enum CutoffStatus
+    {
+        None,
+        Active
     }
 }

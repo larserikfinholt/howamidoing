@@ -52,6 +52,9 @@
       <Private>True</Private>
       <HintPath>..\howSln\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
     </Reference>
+    <Reference Include="ServiceStack.Text">
+      <HintPath>..\howSln\packages\ServiceStack.Text.3.7.9\lib\net35\ServiceStack.Text.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.Entity" />
@@ -195,6 +198,146 @@
     <Content Include="favicon.ico" />
     <Content Include="js\fix.js" />
     <Content Include="Global.asax" />
+    <Content Include="js\plotter.js" />
+    <Content Include="Scripts\jqPlot\changes.txt" />
+    <Content Include="Scripts\jqPlot\copyright.txt" />
+    <Content Include="Scripts\jqPlot\excanvas.js" />
+    <Content Include="Scripts\jqPlot\excanvas.min.js">
+      <DependentUpon>excanvas.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\jqPlot\gpl-2.0.txt" />
+    <Content Include="Scripts\jqPlot\jqPlotCssStyling.txt" />
+    <Content Include="Scripts\jqPlot\jqPlotOptions.txt" />
+    <Content Include="Scripts\jqPlot\jquery.jqplot.css" />
+    <Content Include="Scripts\jqPlot\jquery.jqplot.js" />
+    <Content Include="Scripts\jqPlot\jquery.jqplot.min.css" />
+    <Content Include="Scripts\jqPlot\jquery.jqplot.min.js">
+      <DependentUpon>jquery.jqplot.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\jqPlot\jquery.js" />
+    <Content Include="Scripts\jqPlot\jquery.min.js">
+      <DependentUpon>jquery.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\jqPlot\MIT-LICENSE.txt" />
+    <Content Include="Scripts\jqPlot\optionsTutorial.txt" />
+    <Content Include="Scripts\jqPlot\plugins\jqplot.barRenderer.js" />
+    <Content Include="Scripts\jqPlot\plugins\jqplot.barRenderer.min.js">
+      <DependentUpon>jqplot.barRenderer.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\jqPlot\plugins\jqplot.BezierCurveRenderer.js" />
+    <Content Include="Scripts\jqPlot\plugins\jqplot.BezierCurveRenderer.min.js">
+      <DependentUpon>jqplot.BezierCurveRenderer.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\jqPlot\plugins\jqplot.blockRenderer.js" />
+    <Content Include="Scripts\jqPlot\plugins\jqplot.blockRenderer.min.js">
+      <DependentUpon>jqplot.blockRenderer.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\jqPlot\plugins\jqplot.bubbleRenderer.js" />
+    <Content Include="Scripts\jqPlot\plugins\jqplot.bubbleRenderer.min.js">
+      <DependentUpon>jqplot.bubbleRenderer.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\jqPlot\plugins\jqplot.canvasAxisLabelRenderer.js" />
+    <Content Include="Scripts\jqPlot\plugins\jqplot.canvasAxisLabelRenderer.min.js">
+      <DependentUpon>jqplot.canvasAxisLabelRenderer.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\jqPlot\plugins\jqplot.canvasAxisTickRenderer.js" />
+    <Content Include="Scripts\jqPlot\plugins\jqplot.canvasAxisTickRenderer.min.js">
+      <DependentUpon>jqplot.canvasAxisTickRenderer.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\jqPlot\plugins\jqplot.canvasOverlay.js" />
+    <Content Include="Scripts\jqPlot\plugins\jqplot.canvasOverlay.min.js">
+      <DependentUpon>jqplot.canvasOverlay.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\jqPlot\plugins\jqplot.canvasTextRenderer.js" />
+    <Content Include="Scripts\jqPlot\plugins\jqplot.canvasTextRenderer.min.js">
+      <DependentUpon>jqplot.canvasTextRenderer.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\jqPlot\plugins\jqplot.categoryAxisRenderer.js" />
+    <Content Include="Scripts\jqPlot\plugins\jqplot.categoryAxisRenderer.min.js">
+      <DependentUpon>jqplot.categoryAxisRenderer.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\jqPlot\plugins\jqplot.ciParser.js" />
+    <Content Include="Scripts\jqPlot\plugins\jqplot.ciParser.min.js">
+      <DependentUpon>jqplot.ciParser.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\jqPlot\plugins\jqplot.cursor.js" />
+    <Content Include="Scripts\jqPlot\plugins\jqplot.cursor.min.js">
+      <DependentUpon>jqplot.cursor.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\jqPlot\plugins\jqplot.dateAxisRenderer.js" />
+    <Content Include="Scripts\jqPlot\plugins\jqplot.dateAxisRenderer.min.js">
+      <DependentUpon>jqplot.dateAxisRenderer.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\jqPlot\plugins\jqplot.donutRenderer.js" />
+    <Content Include="Scripts\jqPlot\plugins\jqplot.donutRenderer.min.js">
+      <DependentUpon>jqplot.donutRenderer.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\jqPlot\plugins\jqplot.dragable.js" />
+    <Content Include="Scripts\jqPlot\plugins\jqplot.dragable.min.js">
+      <DependentUpon>jqplot.dragable.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\jqPlot\plugins\jqplot.enhancedLegendRenderer.js" />
+    <Content Include="Scripts\jqPlot\plugins\jqplot.enhancedLegendRenderer.min.js">
+      <DependentUpon>jqplot.enhancedLegendRenderer.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\jqPlot\plugins\jqplot.funnelRenderer.js" />
+    <Content Include="Scripts\jqPlot\plugins\jqplot.funnelRenderer.min.js">
+      <DependentUpon>jqplot.funnelRenderer.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\jqPlot\plugins\jqplot.highlighter.js" />
+    <Content Include="Scripts\jqPlot\plugins\jqplot.highlighter.min.js">
+      <DependentUpon>jqplot.highlighter.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\jqPlot\plugins\jqplot.json2.js" />
+    <Content Include="Scripts\jqPlot\plugins\jqplot.json2.min.js">
+      <DependentUpon>jqplot.json2.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\jqPlot\plugins\jqplot.logAxisRenderer.js" />
+    <Content Include="Scripts\jqPlot\plugins\jqplot.logAxisRenderer.min.js">
+      <DependentUpon>jqplot.logAxisRenderer.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\jqPlot\plugins\jqplot.mekkoAxisRenderer.js" />
+    <Content Include="Scripts\jqPlot\plugins\jqplot.mekkoAxisRenderer.min.js">
+      <DependentUpon>jqplot.mekkoAxisRenderer.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\jqPlot\plugins\jqplot.mekkoRenderer.js" />
+    <Content Include="Scripts\jqPlot\plugins\jqplot.mekkoRenderer.min.js">
+      <DependentUpon>jqplot.mekkoRenderer.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\jqPlot\plugins\jqplot.meterGaugeRenderer.js" />
+    <Content Include="Scripts\jqPlot\plugins\jqplot.meterGaugeRenderer.min.js">
+      <DependentUpon>jqplot.meterGaugeRenderer.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\jqPlot\plugins\jqplot.ohlcRenderer.js" />
+    <Content Include="Scripts\jqPlot\plugins\jqplot.ohlcRenderer.min.js">
+      <DependentUpon>jqplot.ohlcRenderer.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\jqPlot\plugins\jqplot.pieRenderer.js" />
+    <Content Include="Scripts\jqPlot\plugins\jqplot.pieRenderer.min.js">
+      <DependentUpon>jqplot.pieRenderer.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\jqPlot\plugins\jqplot.pointLabels.js" />
+    <Content Include="Scripts\jqPlot\plugins\jqplot.pointLabels.min.js">
+      <DependentUpon>jqplot.pointLabels.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\jqPlot\plugins\jqplot.pyramidAxisRenderer.js" />
+    <Content Include="Scripts\jqPlot\plugins\jqplot.pyramidAxisRenderer.min.js">
+      <DependentUpon>jqplot.pyramidAxisRenderer.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\jqPlot\plugins\jqplot.pyramidGridRenderer.js" />
+    <Content Include="Scripts\jqPlot\plugins\jqplot.pyramidGridRenderer.min.js">
+      <DependentUpon>jqplot.pyramidGridRenderer.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\jqPlot\plugins\jqplot.pyramidRenderer.js" />
+    <Content Include="Scripts\jqPlot\plugins\jqplot.pyramidRenderer.min.js">
+      <DependentUpon>jqplot.pyramidRenderer.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\jqPlot\plugins\jqplot.trendline.js" />
+    <Content Include="Scripts\jqPlot\plugins\jqplot.trendline.min.js">
+      <DependentUpon>jqplot.trendline.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\jqPlot\README.txt" />
+    <Content Include="Scripts\jqPlot\usage.txt" />
     <Content Include="Scripts\jquery-1.7.2-vsdoc.js" />
     <Content Include="Scripts\jquery-1.7.2.js" />
     <Content Include="Scripts\jquery-1.7.2.min.js" />
