@@ -109,8 +109,9 @@ else
     
         
 
-    </script>@*
-    <ul>
+    </script>
+    <div>
+    <ul style="float:right;">
         
     @foreach (var point in goal.Graph.Points.OrderBy(p=>p.Time))
     {
@@ -119,8 +120,9 @@ else
     }   
         </ul> 
     
-    *@<div id="@string.Format("plotdiv{0}", goal.Goal.Id)" style="height:200px;width:300px; ">
-    </div> 
+    <div id="@string.Format("plotdiv{0}", goal.Goal.Id)" style="height:200px;width:300px; ">
+    </div>
+        </div> 
     <script type="text/javascript">
         window.drawPlot('@string.Format("plotdiv{0}",goal.Goal.Id)', [@goal.SerializePoints()]);
     </script>

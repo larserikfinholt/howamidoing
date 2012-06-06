@@ -34,9 +34,10 @@ namespace how.web.Business
 
             if (goal.DoneIts.Count > 0)
             {
+                decimal oldCurrentLevel=0;
                 foreach (var done in goal.DoneIts.OrderBy(d => d.Date))
                 {
-                    var oldCurrentLevel = currentLevel;
+                    oldCurrentLevel = currentLevel;
                     if (previousDoneItTime == null)
                     {
                         // First doneit starts counting
@@ -51,7 +52,7 @@ namespace how.web.Business
                         if (oldCurrentLevel < cutoffLevel)
                         {
                             // Add extra point at lower threshold
-                            var cutoffTime = CalculateLowerCutoffTime(goal, oldCurrentLevel, previousDoneItTime.Value);
+                            var cutoffTime = CalculateLowerCutoffTime(goal, currentLevel, previousDoneItTime.Value);
 
                             vm.Graph.Points.Add(new GraphPoint { Time = cutoffTime, Amount = 0, y = cutoffLevel });
                             oldCurrentLevel = cutoffLevel;
@@ -69,6 +70,9 @@ namespace how.web.Business
                 // Check for cutoff
                 if (currentLevel < cutoffLevel)
                 {
+                    // Add extra point at lower threshold
+                    var cutoffTime = CalculateLowerCutoffTime(goal, oldCurrentLevel, previousDoneItTime.Value);
+                    vm.Graph.Points.Add(new GraphPoint { Time = cutoffTime, Amount = 0, y = cutoffLevel });
                     currentLevel = cutoffLevel;
                     vm.Cutoff = CutoffStatus.Active;
                 }
@@ -110,7 +114,7 @@ namespace how.web.Business
             var hourdecr = GoalProcessor.GetHourlyDecreaseRate(goal);
             var lowerCutoff = goal.GetLowerCutoff();
             var hours = (oldCurrentLevel - lowerCutoff) / hourdecr;
-            return previousDoneItTime.AddHours(Convert.ToDouble(hours));
+            return previousDoneItTime.AddHours(Math.Abs(Convert.ToDouble(hours)));
         }
 
         public static decimal GetHourlyDecreaseRate(Goal goal)

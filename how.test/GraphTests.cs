@@ -67,49 +67,97 @@ namespace how.test
 
         }
         [TestMethod]
-        public void it_should_build_the_graph_correct()
+        public void it_should_show_a_stright_line_when_in_cutoff()
         {
             var now = DateTime.Now;
             var target = new GoalProcessor(now);
             var goal = new Goal() { Amount = 7, IntervalType = IntervalType.Weekly };
 
+            
             // Simple one entry
-            goal.DoneIts = new List<DoneIt>() { new DoneIt() { Amount = 7, Date = now.AddDays(-7) } };
+            // -28,7
+            // -21,0
+            // -14,-7
+            // -7, -14
+            // -6, -14 (cutoff)
+            // 0, -14 (cutoff)
+            goal.DoneIts = new List<DoneIt>() { 
+                new DoneIt() { Amount = 7, Date = now.AddDays(-28) } ,
+                new DoneIt() { Amount = 0, Date = now.AddDays(-21) } ,
+                new DoneIt() { Amount = 0, Date = now.AddDays(-14) } ,
+                new DoneIt() { Amount = 0, Date = now.AddDays(-7) } ,
+            };
             var vm = target.ProcessGoal(goal);
-            AssertPointOnGraph(vm, 0, 0, now.AddDays(-7));
-            AssertPointOnGraph(vm, 1, 7, now.AddDays(-7));
-            AssertPointOnGraph(vm, 2, 0, now.AddDays(-7));
+            // 1: 7
+            AssertPointOnGraph(vm, 0, 0, now.AddDays(-28));
+            AssertPointOnGraph(vm, 1, 7, now.AddDays(-28));
+            // 2: 0
+            AssertPointOnGraph(vm, 2, 0, now.AddDays(-21));
+            AssertPointOnGraph(vm, 3, 0, now.AddDays(-21));
+            // 3: 0
+            AssertPointOnGraph(vm, 4, -7, now.AddDays(-14));
+            AssertPointOnGraph(vm, 5, -7, now.AddDays(-14));
+            // 4: 0
+            AssertPointOnGraph(vm, 6, -14, now.AddDays(-7));
+            AssertPointOnGraph(vm, 7, -14, now.AddDays(-7));
+            // Cutoff
+            AssertPointOnGraph(vm, 8, -14, now.AddDays(-7));
+            // Cutoff
+            AssertPointOnGraph(vm, 9, -14, now.AddDays(-7));
+            // Final
+            AssertPointOnGraph(vm, 10, -14, now.AddDays(0));
 
-            // Strait line from 7 to 0, with on extra point
-            goal.DoneIts = new List<DoneIt>() { 
-                new DoneIt() { Amount = 7, Date = now.AddDays(-7) },
-                new DoneIt() { Amount = 0, Date = now.AddDays(-3) },
-            };
-            vm = target.ProcessGoal(goal);
-            AssertPointOnGraph(vm, 0, 0, now.AddDays(-7));
-            AssertPointOnGraph(vm, 1, 7, now.AddDays(-7));
-            AssertPointOnGraph(vm, 2, 3, now.AddDays(-4));
-            AssertPointOnGraph(vm, 3, 3, now.AddDays(-4));
-            AssertPointOnGraph(vm, 4, 0, now.AddDays(0));
+        }
+        [TestMethod]
+        public void it_should_show_a_stright_line_when_in_cutoff2()
+        {
+            var now = DateTime.Now;
+            var target = new GoalProcessor(now);
+            var goal = new Goal() { Amount = 1, IntervalType = IntervalType.Dayly };
 
-            // Strait line from 7 to 0, with on extra point adding one
+
+            // Simple one entry
+            // -8,1
             goal.DoneIts = new List<DoneIt>() { 
-                new DoneIt() { Amount = 7, Date = now.AddDays(-7) },
-                new DoneIt() { Amount = 1, Date = now.AddDays(-3) },
+                new DoneIt() { Amount = 1, Date = now.AddDays(-10) } ,
             };
-            vm = target.ProcessGoal(goal);
-            AssertPointOnGraph(vm, 0, 0, now.AddDays(-7));
-            AssertPointOnGraph(vm, 1, 7, now.AddDays(-7));
-            AssertPointOnGraph(vm, 2, 3, now.AddDays(-4));
-            AssertPointOnGraph(vm, 3, 4, now.AddDays(-4));
-            AssertPointOnGraph(vm, 4, 1, now.AddDays(0));
+            var vm = target.ProcessGoal(goal);
+            // Start 0,1
+            AssertPointOnGraph(vm, 0, 0, now.AddDays(-10));
+            AssertPointOnGraph(vm, 1, 1, now.AddDays(-10));
+            // 
+            AssertPointOnGraph(vm, 2, -2, now.AddDays(-8));
+            AssertPointOnGraph(vm, 3, -2, now);
+        }
+
+        [TestMethod]
+        public void it_should_calcualte_cutofftime_correct()
+        {
+            var now = DateTime.Now;
+            var firstDoneit = new DateTime(2012, 5, 27);
+            var target = new GoalProcessor(now);
+            var goal = new Goal() { Amount = 1, IntervalType = IntervalType.Dayly };
+
+            var calculated = target.CalculateLowerCutoffTime(goal, 1, firstDoneit);
+            AssertTimesAreAlmostEqual(firstDoneit.AddDays(3), calculated);
+
+            calculated = target.CalculateLowerCutoffTime(goal, 0, now);
+            AssertTimesAreAlmostEqual(now.AddDays(2), calculated);
+
+            calculated = target.CalculateLowerCutoffTime(goal, 1M, now.AddDays(-10));
+            AssertTimesAreAlmostEqual(now.AddDays(-7), calculated);
+        }
+
+        private void AssertTimesAreAlmostEqual(DateTime now, DateTime calculated)
+        {
+            Assert.IsTrue(Math.Abs((now - calculated).TotalSeconds) < 2, string.Format("Time diff should be less than 2 sec, got {0}", (now - calculated).TotalSeconds));
         }
 
         private static void AssertPointOnGraph(web.ViewModel.GoalViewModel vm, int pointNo, decimal value, DateTime time)
         {
             var point = vm.Graph.Points.OrderBy(x => x.Time).ToList()[pointNo];
             Assert.IsTrue(Math.Abs(value - point.y) < (decimal)0.0001, string.Format("Diff should be zero, got {0}", value-point.y));
-            Assert.IsTrue((time-point.Time).TotalSeconds<2, string.Format("Time diff should be less than 2 sec, got {0}",(time-point.Time).TotalSeconds));
+            Assert.IsTrue(Math.Abs((time-point.Time).TotalSeconds)<2, string.Format("Time diff should be less than 2 sec, got {0}",(time-point.Time).TotalSeconds));
         }
     }
 }
